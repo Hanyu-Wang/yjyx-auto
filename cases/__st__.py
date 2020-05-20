@@ -1,8 +1,11 @@
-force_tags = ['冒烟测试','订单功能']
+from lib.WEBAPI import sclass
+from hyrobot.common import INFO
+
 
 def suite_setup():
-    pass
+    INFO("初始化清除所有班级")
+    sclass.del_all()
+
 
 def suite_teardown():
     pass
-
