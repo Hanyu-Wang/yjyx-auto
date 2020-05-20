@@ -24,14 +24,18 @@ class SClass:
     def class_list(self, gradeid=None):
         payloads = {"vcode": g_vcode, "action": "list_classes_by_schoolgrade"}
         if gradeid is not None:
-            payloads["gradeid"] = {"gradeid": gradeid}
+            payloads["gradeid"] = gradeid
         res = requests.get(g_api_class, params=payloads)
         self.print_response(res)
         return res
 
     # 新增班级
 
-    def add_class(self, vcode, action, grade, name, studentlimit):
+    def add_class(self, grade, name, studentlimit):
+        # proxies = {
+        #     'http': 'http://127.0.0.1:8888',
+        #     'https': 'http://127.0.0.1:8888',
+        # }
         payloads = {
             "vcode": g_vcode,
             "action": "add",
@@ -39,29 +43,30 @@ class SClass:
             "name": name,
             "studentlimit": studentlimit,
         }
-        res = requests.post(g_api_class, json=payloads)
+        res = requests.post(g_api_class, data=payloads)
         self.print_response(res)
         return res
 
     # 修改班级
 
-    def modify_class(self, classid, vcode, action, name, studentlimit):
+    def modify_class(self, classid, name, studentlimit):
+        url = f'{g_api_class}/{classid}'
         payloads = {
-            "classid": classid,
             "vcode": g_vcode,
-            "action": "add",
+            "action": "modify",
             "name": name,
             "studentlimit": studentlimit,
         }
-        res = requests.put(g_api_class, json=payloads)
+        res = requests.put(url, data=payloads)
         self.print_response(res)
         return res
 
     # 删除班级
 
-    def del_class(self, classid, vcode):
-        payloads = {"classid": classid, "vcode": g_vcode}
-        res = requests.delete(g_api_class, json=payloads)
+    def del_class(self, classid):
+        payloads = {"vcode": g_vcode}
+        url = f'{g_api_class}/{classid}'
+        res = requests.delete(url, data=payloads)
         self.print_response(res)
         return res
 
@@ -71,7 +76,7 @@ class SClass:
         res = self.class_list()
         theList = res.json()["retlist"]
         for i in theList:
-            self.del_class(i["id"], g_vcode)
+            self.del_class(i["id"])
 
 
 sclass = SClass()
