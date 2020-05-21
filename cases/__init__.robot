@@ -1,8 +1,8 @@
 *** Settings ***
 
-Library  __st__.py   WITH NAME  D
+Library  __st__.py   WITH NAME  M
 
-Suite Setup    D.suite_setup
+Suite Setup    M.suite_setup
 
-Suite Teardown    D.suite_teardown
+Suite Teardown    M.suite_teardown
 

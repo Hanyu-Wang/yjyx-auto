@@ -1,4 +1,4 @@
-from lib.WEBAPI import sclass
+from lib.API.ClassApi import sclass
 from hyrobot.common import GSTORE, INFO
 
 

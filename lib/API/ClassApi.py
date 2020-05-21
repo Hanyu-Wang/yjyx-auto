@@ -72,10 +72,10 @@ class SClass:
 
     # 删除全部班级
 
-    def del_all(self):
+    def del_class_all(self):
         res = self.class_list()
-        theList = res.json()["retlist"]
-        for i in theList:
+        classlist = res.json()["retlist"]
+        for i in classlist:
             self.del_class(i["id"])
 
 
