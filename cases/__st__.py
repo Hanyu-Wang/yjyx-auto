@@ -4,7 +4,7 @@ from hyrobot.common import INFO
 
 
 def suite_setup():
-    INFO("初始化清除所有班级")
+    INFO("初始化清除所有老师，班级")
     steacher.del_teacher_all()
     sclass.del_class_all()
 

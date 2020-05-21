@@ -228,19 +228,35 @@ class C8:
 class C9:
     name = 'tc001001'
 
+    def teardown(self):
+        steacher.del_teacher(self.addcid)
+
     def teststeps(self):
         STEP(1, '新建一个老师')
-        data = 'lishiming', '李世民', 1, [{"id": GSTORE['g_classid']}], 13451813456, 'jcysdf@123.com', 3209251983090987899
-        r = steacher.add_teacher(data)
+        INFO(GSTORE['g_classid'])
+        r = steacher.add_teacher('lishiming', '李世民', 1, [{"id": GSTORE['g_classid']}],
+                                 '13451813456', 'jcysdf@123.com', '3209251983090987899')
         addret = r.json()
+        self.addcid = addret['id']
         STEP(2, '验证返回值')
         CHECK_POINT('返回的retcode值=0',
                     addret['retcode'] == 0)
-        STEP(4, '检查系统数据')
+        STEP(3, '检查系统数据')
         r = steacher.teacher_list()
         listrest = r.json()
         expected = {
-
+            "retlist": [
+                {
+                    "username": "lishiming",
+                    "teachclasslist": [GSTORE['g_classid']],
+                    "realname": "李世民",
+                    "id": addret["id"],
+                    "phonenumber": "13451813456",
+                    "email": "jcysdf@123.com",
+                    "idcardnumber": "3209251983090987899"
+                }
+            ],
+            "retcode": 0
         }
 
         CHECK_POINT('返回的消息体数据正确', expected == listrest)

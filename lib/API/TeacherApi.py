@@ -3,6 +3,7 @@ from cfg.cfg import g_api_teacher, g_vcode
 
 
 class STeacher:
+
     def print_response(self, response):
         print("\n\n-------- HTTP response * begin -------")
         print(response.status_code)
