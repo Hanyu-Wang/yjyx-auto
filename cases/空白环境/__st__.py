@@ -1,13 +1,13 @@
 from lib.API.ClassApi import sclass
-from hyrobot.common import GSTORE, INFO
+from lib.API.TeacherApi import steacher
+from hyrobot.common import INFO
 
 
 def suite_setup():
-    INFO('初始化新建一个班级')
-    r = sclass.add_class(6, '高三25班', 50)
-    addret = r.json()
-    GSTORE['g_classid'] = addret['id']
+    INFO("初始化清除所有老师，班级")
+    steacher.del_teacher_all()
+    sclass.del_class_all()
 
 
 def suite_teardown():
-    sclass.del_class(GSTORE['g_classid'])
+    pass

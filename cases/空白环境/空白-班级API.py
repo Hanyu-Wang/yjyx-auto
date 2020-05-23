@@ -10,20 +10,20 @@ class C1:
 
     def teststeps(self):
         STEP(1, '添加一个班级')
-        r = sclass.add_class(6, '高三25班', 50)
+        r = sclass.add_class(6, '高三23班', 50)
         addret = r.json()
         self.addcid = addret['id']
         STEP(2, '验证参数返回值')
         CHECK_POINT('返回的retcode值=0',
                     addret['retcode'] == 0)
         STEP(3, '检查系统数据')
-        r = sclass.class_list(6)
+        r = sclass.class_list()
         listrest = r.json()
         expected = {
-            "gradeid": 6,
+            "gradeid": None,
             "retlist": [
                 {
-                    "name": "高三25班",
+                    "name": "高三23班",
                     "grade__name": "高三",
                     "invitecode": addret["invitecode"],
                     "studentlimit": 50,

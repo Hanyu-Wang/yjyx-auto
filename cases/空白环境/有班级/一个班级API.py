@@ -1,6 +1,7 @@
 from lib.API.ClassApi import sclass
 from lib.API.TeacherApi import steacher
 from hyrobot.common import STEP, CHECK_POINT, INFO, GSTORE
+import json
 
 
 class C2:
@@ -229,15 +230,16 @@ class C9:
     name = 'tc001001'
 
     def teardown(self):
-        steacher.del_teacher(self.addcid)
+        steacher.del_teacher(self.addtid)
 
     def teststeps(self):
         STEP(1, '新建一个老师')
-        INFO(GSTORE['g_classid'])
-        r = steacher.add_teacher('lishiming', '李世民', 1, [{"id": GSTORE['g_classid']}],
+        data = [{"id": GSTORE['g_classid']}]
+        classid = json.dumps(data)
+        r = steacher.add_teacher('qsh', '秦始皇', 1, classid,
                                  '13451813456', 'jcysdf@123.com', '3209251983090987899')
         addret = r.json()
-        self.addcid = addret['id']
+        self.addtid = addret["id"]
         STEP(2, '验证返回值')
         CHECK_POINT('返回的retcode值=0',
                     addret['retcode'] == 0)
@@ -247,9 +249,9 @@ class C9:
         expected = {
             "retlist": [
                 {
-                    "username": "lishiming",
+                    "username": "cj",
                     "teachclasslist": [GSTORE['g_classid']],
-                    "realname": "李世民",
+                    "realname": "藏剑",
                     "id": addret["id"],
                     "phonenumber": "13451813456",
                     "email": "jcysdf@123.com",
