@@ -4,6 +4,7 @@ from hyrobot.common import STEP, CHECK_POINT, INFO, GSTORE
 import json
 
 
+
 class C2:
     name = 'tc000002'
 
@@ -249,9 +250,9 @@ class C9:
         expected = {
             "retlist": [
                 {
-                    "username": "cj",
+                    "username": "qsh",
                     "teachclasslist": [GSTORE['g_classid']],
-                    "realname": "藏剑",
+                    "realname": "秦始皇",
                     "id": addret["id"],
                     "phonenumber": "13451813456",
                     "email": "jcysdf@123.com",
@@ -262,3 +263,7 @@ class C9:
         }
 
         CHECK_POINT('返回的消息体数据正确', expected == listrest)
+
+
+
+

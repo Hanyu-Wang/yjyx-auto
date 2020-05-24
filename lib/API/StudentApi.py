@@ -1,5 +1,5 @@
 import requests
-from cfg.cfg import g_api_teacher, g_vcode
+from cfg.cfg import g_vcode, g_api_student
 
 
 class SStudent:
@@ -19,13 +19,13 @@ class SStudent:
             print("消息体不是json格式！！")
         print("-------- HTTP response * end -------\n\n")
 
-    # 列出老师
+    # 列出学生
 
     def student_list(self, subjectid=None):
         payloads = {"vcode": g_vcode, "action": "search_with_pagenation"}
         if subjectid is not None:
             payloads["subjectid"] = subjectid
-        res = requests.get(g_api_teacher, params=payloads)
+        res = requests.get(g_api_student, params=payloads)
         self.print_response(res)
         return res
 
@@ -45,14 +45,14 @@ class SStudent:
             "classid": classid,
             "phonenumber": phonenumber,
         }
-        res = requests.post(g_api_teacher, data=payloads)
+        res = requests.post(g_api_student, data=payloads)
         self.print_response(res)
         return res
 
     # 修改学生
 
     def modify_student(self, studentid, realname, phonenumber):
-        url = f'{g_api_teacher}/{studentid}'
+        url = f'{g_api_student}/{studentid}'
         payloads = {
             "vcode": g_vcode,
             "action": "modify",
@@ -67,7 +67,7 @@ class SStudent:
 
     def del_student(self, studentid):
         payloads = {"vcode": g_vcode}
-        url = f'{g_api_teacher}/{studentid}'
+        url = f'{g_api_student}/{studentid}'
         res = requests.delete(url, data=payloads)
         self.print_response(res)
         return res

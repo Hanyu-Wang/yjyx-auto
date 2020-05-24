@@ -1,6 +1,11 @@
 import requests
 from cfg.cfg import g_api_teacher, g_vcode
 
+proxies = {
+    'http': 'http://127.0.0.1:8888',
+    'https': 'http://127.0.0.1:8888',
+}
+
 
 class STeacher:
 
@@ -33,10 +38,6 @@ class STeacher:
     # 新增老师
 
     def add_teacher(self, username, realname, subjectid, classlist, phonenumber, email, idcardnumber):
-        proxies = {
-            'http': 'http://127.0.0.1:8888',
-            'https': 'http://127.0.0.1:8888',
-        }
         payloads = {
             "vcode": g_vcode,
             "action": "add",
@@ -48,7 +49,7 @@ class STeacher:
             "email": email,
             "idcardnumber": idcardnumber
         }
-        res = requests.post(g_api_teacher, data=payloads, proxies=proxies)
+        res = requests.post(g_api_teacher, data=payloads)
         self.print_response(res)
         return res
 
