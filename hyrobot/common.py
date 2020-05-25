@@ -1,12 +1,5 @@
 from robot.libraries.BuiltIn import logger
-from robot.libraries.BuiltIn import BuiltIn
 
-# 存储 robotframework BuiltIn实例对象
-# 通过它可以调用任意 内置关键字对应的函数
-# 比如 
-# from hyrobot.common import RFB
-# RFB.fail('直接报告测试错误')
-RFB = BuiltIn()
 
 # 存储 全局共享 数据
 GSTORE = {}
