@@ -4,7 +4,6 @@ from hyrobot.common import STEP, CHECK_POINT, INFO, GSTORE
 import json
 
 
-
 class C2:
     name = 'tc000002'
 
@@ -263,7 +262,3 @@ class C9:
         }
 
         CHECK_POINT('返回的消息体数据正确', expected == listrest)
-
-
-
-

@@ -19,7 +19,7 @@ class C10:
         STEP(2, '添加一个老师')
         data = [{"id": GSTORE['g_classid']}]
         classid = json.dumps(data)
-        r = steacher.add_teacher('hwd', '汉武帝', 14, classid, '13600000000',
+        r = steacher.add_teacher('hwd', '汉武帝', 1, classid, '13600000000',
                                  'jcysdf@123.com', '3209251983090987899')
         addret = r.json()
         self.addteacherid = addret['id']
@@ -121,7 +121,7 @@ class C13:
         STEP(2, '添加一个老师')
         n_data = [{"id": GSTORE['g_classid']}]
         n_classid = json.dumps(n_data)
-        r = steacher.add_teacher('hwd', '汉武帝', 14, n_classid, '13600000000',
+        r = steacher.add_teacher('hwd', '汉武帝', 1, n_classid, '13600000000',
                                  'jcysdf@123.com', '3209251983090987899')
         addtret = r.json()
         self.addteacherid = addtret['id']
@@ -197,7 +197,7 @@ class C15:
         STEP(2, '添加一个老师')
         data = [{"id": GSTORE['g_classid']}]
         classid = json.dumps(data)
-        r = steacher.add_teacher('hwd', '汉武帝', 14, classid, '13600000000',
+        r = steacher.add_teacher('hwd', '汉武帝', 1, classid, '13600000000',
                                  'jcysdf@123.com', '3209251983090987899')
         addret = r.json()
         STEP(3, '删除老师')

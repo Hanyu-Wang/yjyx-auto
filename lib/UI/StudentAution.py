@@ -4,10 +4,12 @@ import time
 
 
 class StudentOp:
-    def __init__(self):
-        self.driver = webdriver.Chrome()
+
+    def quit_browser(self):
+        return self.driver.quit()
 
     def student_login(self, username, password):
+        self.driver = webdriver.Chrome()
         self.driver.implicitly_wait(10)
         self.driver.get(g_login_student)
         # 登录系统
@@ -52,11 +54,27 @@ class StudentOp:
             ele.append(i.text)
         return ele[4:]
 
+    def submittask(self):
+        self.driver.find_element_by_css_selector('a[href="#/task_manage"]>li').click()
+        time.sleep(2)
+        self.driver.find_element_by_css_selector('#page-wrapper td:nth-child(7) > button').click()
+        time.sleep(1)
+        for i in range(1, 4):
+            self.driver.find_element_by_css_selector(
+                f'#exam_question_list_choice > div > div > div:nth-child({i}) button:nth-child(1)').click()
+            time.sleep(1)
+        self.driver.find_element_by_css_selector('#page-wrapper div.col-lg-12.ng-scope > button').click()
+        time.sleep(2)
+        self.driver.find_element_by_css_selector('.bootstrap-dialog-footer-buttons button:nth-child(2)').click()
+        time.sleep(1)
+        self.driver.find_element_by_css_selector('#page-wrapper div:nth-child(4) > div > img').click()
+        ele = self.driver.find_element_by_css_selector('.col-lg-12.pull-left.ng-scope > span:nth-child(4)')
+        return ele.text
+
 
 studentOp = StudentOp()
 if __name__ == "__main__":
-    studentOp.student_login("yuchigong", "888888")
-    info = studentOp.gethomepageinfo()
-    info2 = studentOp.getwrong_questionsinfo_none()
+    studentOp.student_login("cyj", "888888")
+    info = studentOp.submittask().strip()
+    print(type(info))
     print(info)
-    print(info2)

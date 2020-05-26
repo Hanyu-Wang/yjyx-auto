@@ -11,6 +11,7 @@ class C19:
 
     def teardown(self):
         steacher.del_teacher(self.addtid)
+        teacherOp.quit_browser()
 
     def teststeps(self):
         STEP(1, "新建一个老师")
@@ -44,6 +45,7 @@ class C21:
 
     def teardown(self):
         sstudent.del_student(self.addtid)
+        studentOp.quit_browser()
 
     def teststeps(self):
         STEP(1, "新建一个学生")

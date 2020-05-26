@@ -1,7 +1,8 @@
 from hyrobot.common import STEP, CHECK_POINT, INFO, GSTORE
 import json
-from lib.API.ClassApi import sclass
 from lib.API.StudentApi import sstudent
+from lib.UI.TeacherAction import teacherOp
+from lib.UI.StudentAution import studentOp
 
 
 class C17:
@@ -66,5 +67,6 @@ class C18:
         }
 
         CHECK_POINT('返回的消息体数据正确', expected == listrest)
+
 
 

@@ -9,6 +9,7 @@ class C20:
 
     def teardown(self):
         steacher.del_teacher(self.addteacherid)
+        teacherOp.quit_browser()
 
     def teststeps(self):
         STEP(1, "添加一个老师")
