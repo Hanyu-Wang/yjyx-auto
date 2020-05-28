@@ -39,7 +39,7 @@ class C1:
 
 
 class C7:
-    name = 'tc000081'
+    name = 'tc000007'
 
     def teststeps(self):
         STEP(1, '先列出客户')
@@ -59,6 +59,102 @@ class C7:
         expected = {
             "gradeid": None,
             "retlist": classlist1,
+            "retcode": 0
+        }
+
+        CHECK_POINT('返回的消息体数据正确', expected == listrest)
+
+
+class C31:
+    name = 'tc000031'
+
+    def teardown(self):
+        sclass.del_class(self.addcid)
+
+    def teststeps(self):
+        STEP(1, '添加一个班级')
+        r = sclass.add_class(0, '高三23班', 50)
+        addret = r.json()
+        self.addcid = addret['id']
+        STEP(2, '验证参数返回值')
+        CHECK_POINT('返回的retcode值=',
+                    addret['retcode'] == 1)
+        STEP(3, '检查系统数据')
+        r = sclass.class_list()
+        listrest = r.json()
+        expected = {
+            "gradeid": None,
+            "retlist": [],
+            "retcode": 0
+        }
+
+        CHECK_POINT('返回的消息体数据正确', expected == listrest)
+
+
+class C32:
+    name = 'tc000032'
+
+    def teardown(self):
+        sclass.del_class(self.addcid)
+
+    def teststeps(self):
+        STEP(1, '添加一个班级')
+        r = sclass.add_class(1, '', 50)
+        addret = r.json()
+        self.addcid = addret['id']
+        STEP(2, '验证参数返回值')
+        CHECK_POINT('返回的retcode值=1',
+                    addret['retcode'] == 1)
+        STEP(3, '检查系统数据')
+        r = sclass.class_list()
+        listrest = r.json()
+        expected = {
+            "gradeid": None,
+            "retlist": [],
+            "retcode": 0
+        }
+
+        CHECK_POINT('返回的消息体数据正确', expected == listrest)
+
+
+class C33:
+    name = 'tc000033'
+
+    def teststeps(self):
+        STEP(1, '添加一个班级')
+        r = sclass.add_class(1, '高一一班', '')
+        addret = r.json()
+        STEP(2, '验证参数返回值')
+        CHECK_POINT('返回的retcode值=1',
+                    addret['retcode'] == 1)
+        STEP(3, '检查系统数据')
+        r = sclass.class_list()
+        listrest = r.json()
+        expected = {
+            "gradeid": None,
+            "retlist": [],
+            "retcode": 0
+        }
+
+        CHECK_POINT('返回的消息体数据正确', expected == listrest)
+
+
+class C34:
+    name = 'tc000034'
+
+    def teststeps(self):
+        STEP(1, '添加一个班级')
+        r = sclass.add_class("", '高一一班', '50')
+        addret = r.json()
+        STEP(2, '验证参数返回值')
+        CHECK_POINT('返回的retcode值=1',
+                    addret['retcode'] == 1)
+        STEP(3, '检查系统数据')
+        r = sclass.class_list()
+        listrest = r.json()
+        expected = {
+            "gradeid": None,
+            "retlist": [],
             "retcode": 0
         }
 

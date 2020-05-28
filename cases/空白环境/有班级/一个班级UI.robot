@@ -10,13 +10,13 @@ Library  一个班级UI.C21   WITH NAME  C21
 
 *** Test Cases ***
 
-tc005001
+tc000019
   [Teardown]  C19.teardown
 
   C19.teststeps
 
 
-tc005081
+tc000021
   [Teardown]  C21.teardown
 
   C21.teststeps

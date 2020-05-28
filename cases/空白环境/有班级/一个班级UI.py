@@ -7,7 +7,7 @@ from lib.UI.StudentAution import studentOp
 
 
 class C19:
-    name = "tc005001"
+    name = "tc000019"
 
     def teardown(self):
         steacher.del_teacher(self.addtid)
@@ -41,7 +41,7 @@ class C19:
 
 
 class C21:
-    name = "tc005081"
+    name = "tc000021"
 
     def teardown(self):
         sstudent.del_student(self.addtid)
@@ -65,3 +65,6 @@ class C21:
         expect1 = "您尚未有错题入库哦"
         INFO(expect1)
         CHECK_POINT("班级学生列表为空", classinfo == expect1)
+
+
+

@@ -10,6 +10,7 @@ class StudentOp:
 
     def student_login(self, username, password):
         self.driver = webdriver.Chrome()
+        self.driver.maximize_window()
         self.driver.implicitly_wait(10)
         self.driver.get(g_login_student)
         # 登录系统
@@ -17,6 +18,18 @@ class StudentOp:
         self.driver.find_element_by_id("password").send_keys(password)
         self.driver.find_element_by_tag_name("button").click()
         time.sleep(2)
+
+    def student_loginno(self):
+        self.driver = webdriver.Chrome()
+        self.driver.implicitly_wait(10)
+        self.driver.get(g_login_student)
+        # 登录系统
+        self.driver.find_element_by_id("username").send_keys('why')
+        self.driver.find_element_by_id("password").send_keys('888888')
+        self.driver.find_element_by_tag_name("button").click()
+        time.sleep(2)
+        ele = self.driver.find_element_by_css_selector('.bootstrap-dialog-message')
+        return ele.text
 
     def gethomepageinfo(self):
         self.driver.find_element_by_css_selector('a[href="#/home"]>li').click()
@@ -71,10 +84,18 @@ class StudentOp:
         ele = self.driver.find_element_by_css_selector('.col-lg-12.pull-left.ng-scope > span:nth-child(4)')
         return ele.text
 
+    # 判断元素是否存在的函数
+    def isElementExist(self, element):
+        flag = True
+        try:
+            self.driver.find_element_by_css_selector(element)
+            return flag
+        except[Exception]:
+            flag = False
+            return flag
+
 
 studentOp = StudentOp()
 if __name__ == "__main__":
-    studentOp.student_login("cyj", "888888")
-    info = studentOp.submittask().strip()
-    print(type(info))
+    info = studentOp.student_loginno()
     print(info)

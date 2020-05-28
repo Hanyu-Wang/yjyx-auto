@@ -6,7 +6,7 @@ from lib.API.StudentApi import sstudent
 
 
 class C10:
-    name = 'tc001002'
+    name = 'tc000010'
 
     def teardown(self):
         steacher.del_teacher(self.addteacherid)
@@ -51,7 +51,7 @@ class C10:
 
 
 class C11:
-    name = 'tc001003'
+    name = 'tc000011'
 
     def teststeps(self):
         STEP(1, '先列出老师')
@@ -79,7 +79,7 @@ class C11:
 
 
 class C12:
-    name = 'tc001051'
+    name = 'tc000012'
 
     def teststeps(self):
         STEP(1, '先列出老师')
@@ -107,7 +107,7 @@ class C12:
 
 
 class C13:
-    name = 'tc001052'
+    name = 'tc000013'
 
     def teardown(self):
         steacher.del_teacher(self.addteacherid)
@@ -161,8 +161,94 @@ class C13:
         CHECK_POINT('返回的消息体数据正确', expected == listrest)
 
 
+class C37:
+    name = 'tc000037'
+
+    def teardown(self):
+        steacher.del_teacher(self.addteacherid)
+
+    def teststeps(self):
+        STEP(1, '添加一个老师')
+        n_data = [{"id": GSTORE['g_classid']}]
+        n_classid = json.dumps(n_data)
+        r = steacher.add_teacher('hwd', '汉武帝', 1, n_classid, '13600000000',
+                                 'jcysdf@123.com', '3209251983090987899')
+        addtret = r.json()
+        self.addteacherid = addtret['id']
+        addretcode = r.json()
+        STEP(2, '验证参数返回值')
+        CHECK_POINT('返回的retcode值=0',
+                    addretcode['retcode'] == 0)
+        STEP(3, '检查系统数据')
+        r = steacher.teacher_list(1)
+        listrest = r.json()
+        expected = {
+            "retlist": [
+                {
+                    "username": "hwd",
+                    "teachclasslist": [
+                        GSTORE['g_classid']
+                    ],
+                    "realname": "汉武帝",
+                    "id": addtret['id'],
+                    "phonenumber": "13600000000",
+                    "email": "jcysdf@123.com",
+                    "idcardnumber": "3209251983090987899"
+                }
+            ],
+            "retcode": 0
+        }
+        INFO(expected)
+        CHECK_POINT('返回的消息体数据正确', expected == listrest)
+
+
+class C38:
+    name = 'tc000038'
+
+    def teardown(self):
+        steacher.del_teacher(self.addteacherid)
+
+    def teststeps(self):
+        STEP(1, '先列出老师')
+        r = steacher.teacher_list()
+        listret = r.json()
+        teacherlist = listret["retlist"]
+        STEP(2, '添加一个老师')
+        n_data = [{"id": GSTORE['g_classid']}]
+        n_classid = json.dumps(n_data)
+        r = steacher.add_teacher('hwd', '汉武帝', 1, n_classid, '13600000000',
+                                 'jcysdf@123.com', '3209251983090987899')
+        addtret = r.json()
+        self.addteacherid = addtret['id']
+        addretcode = r.json()
+        STEP(3, '验证参数返回值')
+        CHECK_POINT('返回的retcode值=0',
+                    addretcode['retcode'] == 0)
+        STEP(4, '检查系统数据')
+        r = steacher.teacher_list()
+        listrest = r.json()
+        expected = {
+            "retlist": teacherlist + [
+                {
+                    "username": "hwd",
+                    "teachclasslist": [
+                        GSTORE['g_classid']
+                    ],
+                    "realname": "汉武帝",
+                    "id": addtret['id'],
+                    "phonenumber": "13600000000",
+                    "email": "jcysdf@123.com",
+                    "idcardnumber": "3209251983090987899"
+                }
+            ],
+            "retcode": 0
+        }
+        INFO(expected)
+        CHECK_POINT('返回的消息体数据正确', expected == listrest)
+
+
 class C14:
-    name = 'tc001081'
+    name = 'tc000017'
 
     def teststeps(self):
         STEP(1, '先列出老师')
@@ -187,7 +273,7 @@ class C14:
 
 
 class C15:
-    name = 'tc001082'
+    name = 'tc000015'
 
     def teststeps(self):
         STEP(1, '先列出老师')
@@ -218,7 +304,7 @@ class C15:
 
 
 class C16:
-    name = 'tc002001'
+    name = 'tc000016'
 
     def teardown(self):
         sstudent.del_student(self.addstudentret)
@@ -248,6 +334,3 @@ class C16:
         }
 
         CHECK_POINT('返回的消息体数据正确', expected == listrest)
-
-
-

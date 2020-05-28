@@ -10,6 +10,10 @@ Library  一个老师API.C12   WITH NAME  C12
 
 Library  一个老师API.C13   WITH NAME  C13
 
+Library  一个老师API.C37   WITH NAME  C37
+
+Library  一个老师API.C38   WITH NAME  C38
+
 Library  一个老师API.C14   WITH NAME  C14
 
 Library  一个老师API.C15   WITH NAME  C15
@@ -20,39 +24,51 @@ Library  一个老师API.C16   WITH NAME  C16
 
 *** Test Cases ***
 
-tc001002
+tc000010
   [Teardown]  C10.teardown
 
   C10.teststeps
 
 
-tc001003
+tc000011
 
   C11.teststeps
 
 
-tc001051
+tc000012
 
   C12.teststeps
 
 
-tc001052
+tc000013
   [Teardown]  C13.teardown
 
   C13.teststeps
 
 
-tc001081
+tc000037
+  [Teardown]  C37.teardown
+
+  C37.teststeps
+
+
+tc000038
+  [Teardown]  C38.teardown
+
+  C38.teststeps
+
+
+tc000017
 
   C14.teststeps
 
 
-tc001082
+tc000015
 
   C15.teststeps
 
 
-tc002001
+tc000016
   [Teardown]  C16.teardown
 
   C16.teststeps
