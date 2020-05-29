@@ -3,7 +3,6 @@ from cfg.cfg import g_login_teacher
 import time
 import random
 from hyrobot.common import GSTORE
-from selenium.webdriver import ActionChains
 
 
 def ranstr(num):
@@ -14,11 +13,6 @@ def ranstr(num):
         salt += random.choice(H)
 
     return salt
-
-
-GSTORE['g_ransrt100'] = ranstr(100)
-GSTORE['g_ransrt0'] = ranstr(0)
-GSTORE['g_ransrt1'] = ranstr(1)
 
 
 class TeacherOp:
@@ -35,6 +29,16 @@ class TeacherOp:
         self.driver.find_element_by_id('username').send_keys(username)
         self.driver.find_element_by_id('password').send_keys(password)
         self.driver.find_element_by_id('submit').click()
+
+    # 判断元素是否存在的函数
+    def isElementExist(self, element):
+        flag = True
+        try:
+            self.driver.find_element_by_css_selector(element)
+            return flag
+        except:
+            flag = False
+            return flag
 
     def teacher_loginno(self):
         self.driver = webdriver.Chrome()
@@ -252,23 +256,61 @@ class TeacherOp:
                 ele.append(i.text)
             return ele[2]
 
-    # 判断元素是否存在的函数
-    def isElementExist(self, element):
-        flag = True
-        try:
-            self.driver.find_element_by_css_selector(element)
-            return flag
-        except[Exception]:
-            flag = False
-            return flag
+    def get_Personal_Center(self):
+        self.driver.find_element_by_css_selector('span.ng-binding').click()
+        time.sleep(1)
+        self.driver.find_element_by_css_selector('a[href="#/user_info"]').click()
+        time.sleep(1)
+        ele = []
+        eles = self.driver.find_elements_by_css_selector('.ng-binding')
+        for i in eles:
+            ele.append(i.text)
+        return ele[1:]
+
+    def modify_Personal(self):
+        self.driver.find_element_by_css_selector('span.ng-binding').click()
+        time.sleep(1)
+        self.driver.find_element_by_css_selector('a[href="#/user_info"]').click()
+        time.sleep(1)
+        self.driver.find_element_by_css_selector('a[href="/#tab_two"]').click()
+        time.sleep(1)
+        self.driver.find_element_by_css_selector('div.panel-body.pan td:nth-child(1) td:nth-child(2) input').clear()
+        time.sleep(1)
+        self.driver.find_element_by_css_selector('div.panel-body.pan td:nth-child(1) td:nth-child(2) input').send_keys(
+            '刘邦')
+        time.sleep(2)
+        self.driver.find_element_by_css_selector('a.btn.btn-primary.show-ico-btn').click()
+        time.sleep(1)
+        self.driver.find_element_by_css_selector('#tab_two a:nth-child(24) > img').click()
+        time.sleep(1)
+        self.driver.find_element_by_css_selector('#tab_two tr:nth-child(3) button').click()
+        ele = self.driver.find_element_by_css_selector('.bootstrap-dialog-message')
+        self.driver.find_element_by_css_selector('.bootstrap-dialog-footer-buttons button').click()
+        return ele.text
+
+    def check_topic(self):
+        self.driver.find_element_by_css_selector('#topbar li:nth-child(5)').click()
+        time.sleep(2)
+        self.driver.find_element_by_css_selector('#topbar li:nth-child(5) span').click()
+        time.sleep(2)
+        self.driver.find_element_by_css_selector('#btn_pick_question').click()
+        time.sleep(1)
+        self.driver.switch_to.frame('pick_questions_frame')
+        self.driver.find_element_by_css_selector(
+            '#serach_result_table>div:nth-child(1) label.btn-xs.btn-green.btn-outlined.btn_view_question').click()
+        time.sleep(2)
+        self.driver.switch_to.window(self.driver.window_handles[1])
+        time.sleep(1)
+        ele = self.driver.find_element_by_id('div_subject')
+        return ele.text
 
 
 teacherOp = TeacherOp()
 if __name__ == "__main__":
     teacherOp.teacher_login("hwd", "888888")
-    teacherOp.pushtask()
-    info = teacherOp.check_push_task()
+    info = teacherOp.check_topic()
     # teacherOp.quit_browser()
+    print(type(info))
     print(info)
 #     info = teacherOp.checktask().strip()
 #     print(type(info))

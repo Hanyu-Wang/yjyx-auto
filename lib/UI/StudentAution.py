@@ -8,6 +8,16 @@ class StudentOp:
     def quit_browser(self):
         return self.driver.quit()
 
+    # 判断元素是否存在的函数
+    def isElementExist(self, element):
+        flag = True
+        try:
+            self.driver.find_element_by_css_selector(element)
+            return flag
+        except:
+            flag = False
+            return flag
+
     def student_login(self, username, password):
         self.driver = webdriver.Chrome()
         self.driver.maximize_window()
@@ -84,15 +94,68 @@ class StudentOp:
         ele = self.driver.find_element_by_css_selector('.col-lg-12.pull-left.ng-scope > span:nth-child(4)')
         return ele.text
 
-    # 判断元素是否存在的函数
-    def isElementExist(self, element):
-        flag = True
-        try:
-            self.driver.find_element_by_css_selector(element)
-            return flag
-        except[Exception]:
-            flag = False
-            return flag
+    def getMyTask(self):
+        self.driver.find_element_by_css_selector('a[href="#/task_manage"]>li').click()
+        time.sleep(2)
+        flag = self.isElementExist('div:nth-child(2) div.ng-scope')
+        if flag:
+            ele = self.driver.find_element_by_css_selector('div:nth-child(2) div.ng-scope')
+            return ele.text
+        else:
+            ele = []
+            eles = self.driver.find_elements_by_css_selector('td.ng-binding')
+            for i in eles:
+                ele.append(i.text)
+            return ele[1:3]
+
+    def get_statistics_info(self):
+        self.driver.find_element_by_css_selector('a[href="#/stats"]>li').click()
+        time.sleep(2)
+        flag = self.isElementExist('div:nth-child(2) div.ng-scope')
+        if flag:
+            ele = self.driver.find_element_by_css_selector('div:nth-child(2) div.ng-scope')
+            return ele.text
+        else:
+            ele = []
+            eles = self.driver.find_elements_by_css_selector('td.ng-binding')
+            for i in eles:
+                ele.append(i.text)
+            return ele
+
+    def get_Personal_Info(self):
+        self.driver.find_element_by_css_selector('li:nth-child(2) span.ng-binding').click()
+        self.driver.find_element_by_css_selector('a[href="#/user_info"]').click()
+        time.sleep(1)
+        flag = self.isElementExist('.list-group>li')
+        if flag:
+            ele = self.driver.find_element_by_css_selector('.list-group>li')
+            return ele.text
+        else:
+            ele = []
+            eles = self.driver.find_elements_by_css_selector('label.ng-binding')
+            time.sleep(2)
+            for i in eles:
+                ele.append(i.text)
+            return ele[:6]
+
+    def modify_user_info(self):
+        self.driver.find_element_by_css_selector('li:nth-child(2) span.ng-binding').click()
+        self.driver.find_element_by_css_selector('a[href="#/user_info"]').click()
+        time.sleep(1)
+        self.driver.find_element_by_css_selector('a[href="/#tab_two"]').click()
+        time.sleep(1)
+        self.driver.find_element_by_css_selector('form>div:nth-child(1) input').clear()
+        self.driver.find_element_by_css_selector('form>div:nth-child(1) input').send_keys('三板斧')
+        time.sleep(2)
+        self.driver.find_element_by_css_selector('a.btn.btn-orange.show-ico-btn').click()
+        time.sleep(1)
+        self.driver.find_element_by_css_selector('a:nth-child(42)>img').click()
+        time.sleep(1)
+        self.driver.find_element_by_css_selector('#tab_two button').click()
+        ele = self.driver.find_element_by_css_selector('.bootstrap-dialog-message')
+        time.sleep(2)
+        self.driver.find_element_by_css_selector('.btn.btn-default').click()
+        return ele.text
 
 
 studentOp = StudentOp()

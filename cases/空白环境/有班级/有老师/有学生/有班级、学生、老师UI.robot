@@ -26,6 +26,14 @@ Library  有班级、学生、老师UI.C52   WITH NAME  C52
 
 Library  有班级、学生、老师UI.C53   WITH NAME  C53
 
+Library  有班级、学生、老师UI.C54   WITH NAME  C54
+
+Library  有班级、学生、老师UI.C55   WITH NAME  C55
+
+Library  有班级、学生、老师UI.C56   WITH NAME  C56
+
+Library  有班级、学生、老师UI.C65   WITH NAME  C65
+
 
 
 *** Test Cases ***
@@ -100,3 +108,27 @@ tc000053
   [Teardown]  C53.teardown
 
   C53.teststeps
+
+
+tc000054
+  [Teardown]  C54.teardown
+
+  C54.teststeps
+
+
+tc000055
+  [Teardown]  C55.teardown
+
+  C55.teststeps
+
+
+tc000056
+  [Teardown]  C56.teardown
+
+  C56.teststeps
+
+
+tc000065
+  [Teardown]  C65.teardown
+
+  C65.teststeps
